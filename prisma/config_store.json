@@ -1,0 +1,73 @@
+{
+  "websites": [
+    {
+      "id": "web-1788261626494",
+      "name": "Betel PV",
+      "createdAt": "2026-09-01T11:20:26.494Z"
+    },
+    {
+      "id": "web-1788261543063",
+      "name": "Betel SSO",
+      "createdAt": "2026-09-01T11:19:03.063Z"
+    },
+    {
+      "id": "web-1788261535928",
+      "name": "Betel Meet",
+      "createdAt": "2026-09-01T11:18:55.928Z"
+    },
+    {
+      "id": "web-1788261522362",
+      "name": "Betel Utility",
+      "createdAt": "2026-09-01T11:18:42.362Z"
+    },
+    {
+      "id": "web-1788261513136",
+      "name": "Betel Jobs",
+      "createdAt": "2026-09-01T11:18:33.136Z"
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod-301",
+      "name": "WebRTC Video Conferencing Engine",
+      "websiteId": "web-1788261535928",
+      "category": "Streaming",
+      "createdAt": "2026-09-01T11:16:46.747Z"
+    },
+    {
+      "id": "mod-302",
+      "name": "Meeting Room Scheduler & Live Chat",
+      "websiteId": "web-1788261535928",
+      "category": "Collaboration",
+      "createdAt": "2026-09-01T11:16:46.747Z"
+    },
+    {
+      "id": "mod-401",
+      "name": "Billing, Metering & Utility Rates Engine",
+      "websiteId": "web-1788261522362",
+      "category": "Billing",
+      "createdAt": "2026-09-01T11:16:46.747Z"
+    },
+    {
+      "id": "mod-402",
+      "name": "Customer Payment Gateway & Invoicing",
+      "websiteId": "web-1788261522362",
+      "category": "Payments",
+      "createdAt": "2026-09-01T11:16:46.747Z"
+    },
+    {
+      "id": "mod-501",
+      "name": "Job Posting Portal & Application Tracker",
+      "websiteId": "web-1788261513136",
+      "category": "Recruitment",
+      "createdAt": "2026-09-01T11:16:46.747Z"
+    },
+    {
+      "id": "mod-502",
+      "name": "Candidate Resume Parser & Interview Scheduler",
+      "websiteId": "web-1788261513136",
+      "category": "HR Tech",
+      "createdAt": "2026-09-01T11:16:46.747Z"
+    }
+  ]
+}
