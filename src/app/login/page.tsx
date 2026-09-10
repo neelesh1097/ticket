@@ -59,7 +59,7 @@ export default function LoginPage() {
           <Ticket className="w-7 h-7" />
         </div>
         <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-          {mode === 'login' ? 'Welcome Back to BetelTicket' : 'Create Your Account'}
+          {mode === 'login' ? 'Welcome Back to TicketPulse' : 'Create Your Account'}
         </h1>
         <p className="text-xs text-slate-500 font-medium mt-1">
           {mode === 'login'
