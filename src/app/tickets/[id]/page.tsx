@@ -399,11 +399,11 @@ export default function TicketDetailPage() {
     return (
       <div className="bg-white rounded-2xl p-12 text-center border border-slate-200 space-y-4 max-w-lg mx-auto my-12">
         <AlertCircle className="w-12 h-12 text-amber-500 mx-auto" />
-        <h2 className="text-lg font-bold text-slate-800">Ticket Not Found</h2>
-        <p className="text-xs text-slate-500">The requested ticket could not be located in the database.</p>
+        <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Ticket Not Found</h2>
+        <p className="text-xs text-slate-500 dark:text-slate-400">The requested ticket could not be located in the database.</p>
         <button
           onClick={() => router.push('/tickets')}
-          className="px-4 py-2 bg-[#c16d18] text-white rounded-xl text-xs font-bold"
+          className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-cyan-500 text-white rounded-xl text-xs font-bold"
         >
           Return to Tickets Desk
         </button>
@@ -423,16 +423,16 @@ export default function TicketDetailPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Tickets Desk</span>
         </button>
 
-        {/* Manager Action Banner */}
-        {(currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN') && ticket.status === 'PENDING_APPROVAL' && (
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-amber-50 border border-amber-300 p-3 rounded-2xl w-full sm:w-auto">
-            <span className="text-xs font-bold text-amber-900 shrink-0">Manager Action:</span>
+        {/* Action Banner for unassigned / pending tickets */}
+        {(currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN' || currentRole === 'IT_SOFTWARE') && ticket.status === 'PENDING_APPROVAL' && (
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 p-3 rounded-2xl w-full sm:w-auto">
+            <span className="text-xs font-bold text-indigo-900 dark:text-indigo-300 shrink-0">Assign & Dispatch:</span>
             <select
               value={selectedTeamId}
               onChange={(e) => {
@@ -446,7 +446,7 @@ export default function TicketDetailPage() {
                   if (!isMember) setAssigneeId('');
                 }
               }}
-              className="w-full sm:w-auto px-2.5 py-1.5 text-xs font-bold border border-amber-300 rounded-lg bg-white focus:outline-none"
+              className="w-full sm:w-auto px-2.5 py-1.5 text-xs font-bold border border-indigo-200 dark:border-indigo-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none"
             >
               <option value="">-- Assign Team (Broadcasts to members) --</option>
               {teams.map((t: any) => (
@@ -469,7 +469,7 @@ export default function TicketDetailPage() {
                   }
                 }
               }}
-              className="w-full sm:w-auto px-2.5 py-1.5 text-xs font-bold border border-amber-300 rounded-lg bg-white focus:outline-none"
+              className="w-full sm:w-auto px-2.5 py-1.5 text-xs font-bold border border-indigo-200 dark:border-indigo-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none"
             >
               <option value="">-- Assign Specialist (Optional) --</option>
               {itSpecialists.map((u: any) => {
@@ -484,7 +484,7 @@ export default function TicketDetailPage() {
             <select
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
-              className="w-full sm:w-auto px-2.5 py-1.5 text-xs font-bold border border-amber-300 rounded-lg bg-white focus:outline-none"
+              className="w-full sm:w-auto px-2.5 py-1.5 text-xs font-bold border border-indigo-200 dark:border-indigo-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none"
             >
               <option value="LOW">Low Priority</option>
               <option value="MEDIUM">Medium Priority</option>
@@ -492,24 +492,24 @@ export default function TicketDetailPage() {
               <option value="URGENT">Urgent Priority</option>
             </select>
             <div className="flex items-center gap-1.5 w-full sm:w-auto">
-              <span className="text-[11px] font-bold text-amber-900 shrink-0">Target Closure:</span>
+              <span className="text-[11px] font-bold text-indigo-900 dark:text-indigo-300 shrink-0">Target Closure:</span>
               <input
                 type="date"
                 value={targetClosureDate}
                 onChange={(e) => setTargetClosureDate(e.target.value)}
-                className="w-full sm:w-auto px-2 py-1 text-xs font-bold border border-amber-300 rounded-lg bg-white focus:outline-none"
+                className="w-full sm:w-auto px-2 py-1 text-xs font-bold border border-indigo-200 dark:border-indigo-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none"
               />
             </div>
             <div className="flex items-center gap-2 w-full sm:w-auto pt-1 sm:pt-0">
               <button
                 onClick={handleApprove}
-                className="flex-1 sm:flex-initial px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-xs"
+                className="flex-1 sm:flex-initial px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold rounded-lg shadow-xs"
               >
                 Approve & Assign
               </button>
               <button
                 onClick={() => setShowRejectModal(true)}
-                className="flex-1 sm:flex-initial px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg"
+                className="flex-1 sm:flex-initial px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg"
               >
                 Reject
               </button>
@@ -523,10 +523,10 @@ export default function TicketDetailPage() {
         {/* Main Content (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Header Info */}
-          <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div className="bg-white dark:bg-[#0f172a] p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-4 transition-colors">
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-mono text-sm font-black text-[#c16d18]">{ticket.ticketNumber}</span>
+                <span className="font-mono text-sm font-black text-indigo-600 dark:text-indigo-400">{ticket.ticketNumber}</span>
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700">
                   {ticket.category}
                 </span>
@@ -709,16 +709,16 @@ export default function TicketDetailPage() {
                       (att.fileUrl && (att.fileUrl.startsWith('data:image/') || att.fileUrl.match(/\.(png|jpg|jpeg|gif|webp|svg)/i)));
 
                     return (
-                      <div key={att.id} className="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+                      <div key={att.id} className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 space-y-2">
                         <a
                           href={att.fileUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-3 hover:text-[#c16d18] transition-colors"
+                          className="flex items-center gap-3 hover:text-indigo-600 dark:hover:text-cyan-400 transition-colors"
                         >
-                          <FileText className="w-5 h-5 text-[#c16d18] shrink-0" />
+                          <FileText className="w-5 h-5 text-indigo-600 dark:text-cyan-400 shrink-0" />
                           <div className="truncate">
-                            <p className="text-xs font-bold text-slate-800 truncate">{att.fileName}</p>
+                            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{att.fileName}</p>
                             <p className="text-[10px] text-slate-400">Click to open full size</p>
                           </div>
                         </a>
@@ -801,13 +801,13 @@ export default function TicketDetailPage() {
           </div>
 
           {/* Discussion & Coordination Stream */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h2 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#c16d18]" />
+          <div className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs space-y-4 transition-colors">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h2 className="font-extrabold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Discussion & Coordination Stream</span>
               </h2>
-              <span className="text-[10px] font-bold text-slate-400">
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">
                 {ticket.comments?.filter((c: any) => !c.isInternal || currentRole !== 'GUEST_USER').length || 0} Comments
               </span>
             </div>
@@ -825,30 +825,30 @@ export default function TicketDetailPage() {
                     : 'Post a public comment or clarification request...'
                 }
                 className={`w-full p-3 text-xs border rounded-xl focus:outline-none focus:ring-2 transition-all ${isInternalComment
-                  ? 'border-purple-300 bg-purple-50/50 focus:ring-purple-500/40 text-purple-950 font-mono'
-                  : 'border-slate-200 focus:ring-[#c16d18]/40 text-slate-800'
+                  ? 'border-purple-300 dark:border-purple-800 bg-purple-50/50 dark:bg-purple-950/30 focus:ring-purple-500/40 text-purple-950 dark:text-purple-200 font-mono'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 focus:ring-indigo-500/40 text-slate-800 dark:text-slate-100'
                   }`}
               />
 
               <div className="flex items-center justify-between flex-wrap gap-2">
                 {(currentRole === 'IT_SOFTWARE' || currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN') ? (
-                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                     <input
                       type="checkbox"
                       checked={isInternalComment}
                       onChange={(e) => setIsInternalComment(e.target.checked)}
                       className="rounded text-purple-600 focus:ring-purple-500"
                     />
-                    <Lock className="w-3.5 h-3.5 text-purple-600" />
-                    <span>Post as Internal IT Note (Restricted to IT Staff/ Managers)</span>
+                    <Lock className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                    <span>Post as Internal IT Note (Restricted to IT Staff / Managers)</span>
                   </label>
                 ) : (
-                  <span className="text-[10px] text-slate-400 font-medium">Public comment visible to assigned team</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">Public comment visible to assigned team</span>
                 )}
 
                 <button
                   type="submit"
-                  className={`px-4 py-2 rounded-xl text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all ${isInternalComment ? 'bg-purple-600 hover:bg-purple-700' : 'bg-[#c16d18] hover:bg-[#a35810]'
+                  className={`px-4 py-2 rounded-xl text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-all ${isInternalComment ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600'
                     }`}
                 >
                   <Send className="w-3.5 h-3.5" />
@@ -860,7 +860,7 @@ export default function TicketDetailPage() {
             {/* Comments Thread List */}
             <div className="space-y-3 pt-2">
               {(!ticket.comments || ticket.comments.length === 0) ? (
-                <p className="py-6 text-center text-slate-400 text-xs font-medium">
+                <p className="py-6 text-center text-slate-400 dark:text-slate-500 text-xs font-medium">
                   No comments yet. Start the conversation above!
                 </p>
               ) : (
@@ -870,24 +870,24 @@ export default function TicketDetailPage() {
                     <div
                       key={comment.id}
                       className={`p-4 rounded-xl border space-y-1.5 text-xs transition-all ${comment.isInternal
-                        ? 'border-purple-200 bg-purple-50/60 text-purple-950 shadow-xs'
-                        : 'border-slate-200 bg-slate-50/70 text-slate-800'
+                        ? 'border-purple-200 dark:border-purple-900/60 bg-purple-50/60 dark:bg-purple-950/30 text-purple-950 dark:text-purple-200 shadow-xs'
+                        : 'border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200'
                         }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="font-extrabold text-slate-900">{comment.author?.name || 'User'}</span>
-                          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-slate-200 text-slate-700">
+                          <span className="font-extrabold text-slate-900 dark:text-white">{comment.author?.name || 'User'}</span>
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
                             {comment.author?.role?.replace('_', ' ') || 'User'}
                           </span>
                           {comment.isInternal && (
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-purple-200 text-purple-900 inline-flex items-center gap-1">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-purple-200 dark:bg-purple-900/60 text-purple-900 dark:text-purple-200 inline-flex items-center gap-1">
                               <Lock className="w-2.5 h-2.5" />
                               <span>Internal IT Note</span>
                             </span>
                           )}
                         </div>
-                        <span className="text-[10px] text-slate-400">
+                        <span className="text-[10px] text-slate-400 dark:text-slate-500">
                           {new Date(comment.createdAt).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
                         </span>
                       </div>
@@ -901,32 +901,32 @@ export default function TicketDetailPage() {
 
         {/* Sidebar Info & Controls */}
         <div className="space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4 text-xs">
-            <h3 className="font-extrabold text-slate-900 text-sm">Ticket Properties</h3>
+          <div className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-xs space-y-4 text-xs transition-colors">
+            <h3 className="font-extrabold text-slate-900 dark:text-white text-sm">Ticket Properties</h3>
 
             <div className="space-y-3">
               <div>
-                <p className="text-slate-400 font-bold uppercase text-[10px]">Target Website</p>
-                <p className="font-bold text-slate-800">{ticket.websiteName || 'N/A'}</p>
+                <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Target Website</p>
+                <p className="font-bold text-slate-800 dark:text-slate-200">{ticket.websiteName || 'N/A'}</p>
               </div>
 
               <div>
-                <p className="text-slate-400 font-bold uppercase text-[10px]">Target Module</p>
-                <p className="font-bold text-slate-800">{ticket.module || 'N/A'}</p>
+                <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Target Module</p>
+                <p className="font-bold text-slate-800 dark:text-slate-200">{ticket.module || 'N/A'}</p>
               </div>
 
               <div>
-                <p className="text-slate-400 font-bold uppercase text-[10px]">Created By</p>
-                <p className="font-bold text-slate-800">{ticket.createdBy?.name || 'Guest User'}</p>
+                <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Created By</p>
+                <p className="font-bold text-slate-800 dark:text-slate-200">{ticket.createdBy?.name || 'Guest User'}</p>
               </div>
 
               <div>
-                <p className="text-slate-400 font-bold uppercase text-[10px] mb-1">Urgency / Priority Level</p>
+                <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px] mb-1">Urgency / Priority Level</p>
                 {(currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN') ? (
                   <select
                     value={ticket.priority || selectedPriority || 'MEDIUM'}
                     onChange={(e) => handlePriorityChange(e.target.value)}
-                    className="w-full p-2 border border-slate-200 rounded-xl font-bold bg-white text-xs text-slate-800 focus:ring-2 focus:ring-[#c16d18]/40"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-xl font-bold bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/40"
                   >
                     <option value="LOW">Low Priority</option>
                     <option value="MEDIUM">Medium Priority</option>
@@ -946,17 +946,17 @@ export default function TicketDetailPage() {
                 )}
               </div>
 
-              {(currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN') ? (
-                <div className="space-y-3 pt-2 border-t border-slate-100">
+              {(currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN' || currentRole === 'IT_SOFTWARE') ? (
+                <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div>
-                    <p className="text-slate-400 font-bold uppercase text-[10px] mb-1 flex items-center gap-1">
-                      <Building className="w-3.5 h-3.5 text-[#c16d18]" />
+                    <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px] mb-1 flex items-center gap-1">
+                      <Building className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                       <span>Assign Operational Team (Broadcasts to all members)</span>
                     </p>
                     <select
                       value={ticket.teamId || selectedTeamId || ''}
                       onChange={(e) => handleTeamChange(e.target.value)}
-                      className="w-full p-2 border border-slate-200 rounded-xl font-bold bg-white text-xs text-slate-800 focus:ring-2 focus:ring-[#c16d18]/40"
+                      className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-xl font-bold bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/40"
                     >
                       <option value="">-- No Team Assigned --</option>
                       {teams.map((t: any) => (
@@ -968,14 +968,14 @@ export default function TicketDetailPage() {
                   </div>
 
                   <div>
-                    <p className="text-slate-400 font-bold uppercase text-[10px] mb-1 flex items-center gap-1">
-                      <UserCheck className="w-3.5 h-3.5 text-blue-600" />
+                    <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px] mb-1 flex items-center gap-1">
+                      <UserCheck className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                       <span>Assign Individual IT Specialist</span>
                     </p>
                     <select
                       value={ticket.assignedToId || assigneeId || ''}
                       onChange={(e) => handleSpecialistChange(e.target.value)}
-                      className="w-full p-2 border border-slate-200 rounded-xl font-bold bg-white text-xs text-slate-800 focus:ring-2 focus:ring-amber-500/40"
+                      className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-xl font-bold bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/40"
                     >
                       <option value="">-- Unassigned --</option>
                       {itSpecialists.map((u: any) => {
@@ -989,31 +989,31 @@ export default function TicketDetailPage() {
                     </select>
                   </div>
                   <div>
-                    <p className="text-slate-400 font-bold uppercase text-[10px] mb-1 flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-amber-600" />
+                    <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px] mb-1 flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                       <span>Target Closure / Due Date</span>
                     </p>
                     <input
                       type="date"
                       value={targetClosureDate}
                       onChange={(e) => handleClosureDateChange(e.target.value)}
-                      className="w-full p-2 border border-slate-200 rounded-xl font-bold bg-white text-xs text-slate-800 focus:ring-2 focus:ring-amber-500/40"
+                      className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-xl font-bold bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/40"
                     />
                   </div>
                 </div>
               ) : (
-                <div className="space-y-2 pt-2 border-t border-slate-100">
+                <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div>
-                    <p className="text-slate-400 font-bold uppercase text-[10px]">Assigned Team</p>
-                    <p className="font-bold text-slate-800">{ticket.team?.name || 'No Team Assigned'}</p>
+                    <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Assigned Team</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-200">{ticket.team?.name || 'No Team Assigned'}</p>
                   </div>
                   <div>
-                    <p className="text-slate-400 font-bold uppercase text-[10px]">Assigned Specialist</p>
-                    <p className="font-bold text-slate-800">{ticket.assignedTo?.name || 'Unassigned'}</p>
+                    <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Assigned Specialist</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-200">{ticket.assignedTo?.name || 'Unassigned'}</p>
                   </div>
                   <div>
-                    <p className="text-slate-400 font-bold uppercase text-[10px]">Target Closure Date</p>
-                    <p className="font-bold text-slate-800">
+                    <p className="text-slate-400 dark:text-slate-500 font-bold uppercase text-[10px]">Target Closure Date</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-200">
                       {ticket.targetClosureDate
                         ? new Date(ticket.targetClosureDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
                         : 'Not Set'}
@@ -1079,11 +1079,11 @@ export default function TicketDetailPage() {
             
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Target Environment *</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Target Environment *</label>
                 <select
                   value={workEnv}
                   onChange={(e) => setWorkEnv(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 bg-white font-bold text-slate-900"
+                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white"
                 >
                   <option value="DEV">DEV (Development)</option>
                   <option value="UAT">UAT (Staging/QA)</option>
@@ -1092,37 +1092,37 @@ export default function TicketDetailPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Branch / Commit Ref</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Branch / Commit Ref</label>
                 <input
                   type="text"
                   value={workBranch}
                   onChange={(e) => setWorkBranch(e.target.value)}
                   placeholder="e.g. fix/auth-leak"
-                  className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 font-mono text-purple-950 font-bold"
+                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 font-mono text-indigo-900 dark:text-cyan-300 font-bold"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Hours Spent (e.g. 2.5) *</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Hours Spent (e.g. 2.5) *</label>
               <input
                 type="number"
                 step="0.5"
                 required
                 value={hoursSpent}
                 onChange={(e) => setHoursSpent(e.target.value)}
-                className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 font-bold text-slate-900"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Work Log Description *</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Work Log Description *</label>
               <textarea
                 required
                 rows={3}
                 value={workDesc}
                 onChange={(e) => setWorkDesc(e.target.value)}
                 placeholder="Details of code fix, server config, branch deployment, or bug investigation..."
-                className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 text-slate-900"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
               />
             </div>
             <div className="flex items-center justify-end gap-2 pt-2">
@@ -1252,7 +1252,7 @@ export default function TicketDetailPage() {
                     ? 'e.g. Verified fix on UAT environment. All test cases passed.'
                     : 'e.g. Bug still reproduces when clicking submit button on UAT build...'
                 }
-                className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 text-slate-900"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
               />
             </div>
 
@@ -1281,50 +1281,50 @@ export default function TicketDetailPage() {
       {/* Edit Ticket Modal */}
       {showEditModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleSaveEdit} className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-base text-slate-900 flex items-center gap-2">
-                <Pencil className="w-4 h-4 text-[#c16d18]" />
+          <form onSubmit={handleSaveEdit} className="bg-white dark:bg-slate-900 rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                <Pencil className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Edit Ticket Details</span>
               </h3>
-              <span className="font-mono text-xs font-bold text-[#c16d18]">{ticket.ticketNumber}</span>
+              <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">{ticket.ticketNumber}</span>
             </div>
 
             {editError && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl font-medium">
+              <div className="p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-300 text-xs rounded-xl font-medium">
                 {editError}
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Ticket Title *</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Ticket Title *</label>
               <input
                 type="text"
                 required
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
-                className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 font-semibold text-slate-900"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 font-semibold text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Detailed Description *</label>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Detailed Description *</label>
               <textarea
                 required
                 rows={4}
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
-                className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 text-slate-900"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Category</label>
                 <select
                   value={editCategory}
                   onChange={(e) => setEditCategory(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 bg-white font-semibold text-slate-900"
+                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-semibold text-slate-900 dark:text-slate-100"
                 >
                   <option value="Software Bug">Software Bug</option>
                   <option value="IT Request">IT Request</option>
@@ -1334,11 +1334,11 @@ export default function TicketDetailPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Urgency / Priority</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Urgency / Priority</label>
                 <select
                   value={editPriority}
                   onChange={(e) => setEditPriority(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 bg-white font-semibold text-slate-900"
+                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-semibold text-slate-900 dark:text-slate-100"
                 >
                   <option value="LOW">Low Priority</option>
                   <option value="MEDIUM">Medium Priority</option>
@@ -1350,12 +1350,12 @@ export default function TicketDetailPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Target Website / Portal Name</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Target Website / Portal Name</label>
                 {configWebsites.length > 0 ? (
                   <select
                     value={editWebsiteName}
                     onChange={(e) => setEditWebsiteName(e.target.value)}
-                    className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 bg-white font-bold text-slate-900"
+                    className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-slate-100"
                   >
                     {editWebsiteName && !configWebsites.some((w) => w.name === editWebsiteName) && (
                       <option value={editWebsiteName}>{editWebsiteName}</option>
@@ -1372,18 +1372,18 @@ export default function TicketDetailPage() {
                     value={editWebsiteName}
                     onChange={(e) => setEditWebsiteName(e.target.value)}
                     placeholder="e.g. Client Portal, CRM Web App"
-                    className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 font-semibold text-slate-900"
+                    className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 font-semibold text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800"
                   />
                 )}
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Target Module / Page</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Target Module / Page</label>
                 {filteredEditModules.length > 0 ? (
                   <select
                     value={editModule}
                     onChange={(e) => setEditModule(e.target.value)}
-                    className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 bg-white font-bold text-slate-900"
+                    className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-slate-100"
                   >
                     {editModule && !filteredEditModules.some((m) => m.name === editModule) && (
                       <option value={editModule}>{editModule}</option>
@@ -1400,17 +1400,17 @@ export default function TicketDetailPage() {
                     value={editModule}
                     onChange={(e) => setEditModule(e.target.value)}
                     placeholder="e.g. Billing, Auth, Reports"
-                    className="w-full p-2.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c16d18]/40 font-semibold text-slate-900"
+                    className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 font-semibold text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800"
                   />
                 )}
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
               <button
                 type="button"
                 onClick={() => setShowEditModal(false)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 disabled={editLoading}
               >
                 Cancel
@@ -1418,7 +1418,7 @@ export default function TicketDetailPage() {
               <button
                 type="submit"
                 disabled={editLoading}
-                className="px-4 py-2 rounded-xl bg-[#c16d18] hover:bg-[#a35810] text-white text-xs font-bold shadow-md transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600 text-white text-xs font-bold shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 {editLoading ? 'Saving...' : 'Save Ticket Changes'}
               </button>

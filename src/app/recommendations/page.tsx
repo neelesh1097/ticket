@@ -256,41 +256,42 @@ export default function RecommendationsPage() {
     <div className="space-y-8">
       {/* Toast Alert */}
       {showSuccessToast && (
-        <div className="fixed bottom-6 right-6 bg-[#c16d18] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 z-50 animate-bounce text-xs font-bold">
-          <CheckCircle2 className="w-5 h-5" />
+        <div className="fixed bottom-6 right-6 bg-linear-to-r from-indigo-600 to-cyan-500 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 z-50 animate-bounce text-xs font-bold shadow-indigo-500/30">
+          <CheckCircle2 className="w-5 h-5 text-white" />
           <span>Feature suggestion submitted successfully!</span>
         </div>
       )}
 
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#c16d18] to-[#d97d20] text-white p-6 sm:p-8 rounded-2xl shadow-xl space-y-2">
+      <div className="relative overflow-hidden bg-linear-to-r from-indigo-600 via-indigo-700 to-cyan-600 text-white p-6 sm:p-8 rounded-2xl shadow-xl space-y-2 border border-indigo-500/20">
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-44 h-44 rounded-full bg-cyan-400/20 blur-2xl pointer-events-none" />
         <div className="flex items-center gap-2">
-          <span className="bg-white/20 text-amber-100 text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full">
+          <span className="bg-white/15 backdrop-blur-md text-cyan-200 text-[10px] uppercase font-black px-3 py-1 rounded-full border border-white/20 tracking-wider">
             Feature Suggestion Portal
           </span>
         </div>
-        <h1 className="text-2xl font-black tracking-tight">Customer Feature & Improvement Suggestions</h1>
-        <p className="text-xs text-amber-100 max-w-2xl">
-          Submit feature ideas with mockup screenshots, vote on popular community recommendations, and track development status.
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">Customer Feature & Improvement Suggestions</h1>
+        <p className="text-xs sm:text-sm text-indigo-100 max-w-2xl font-medium">
+          Submit feature ideas with mockup screenshots, vote on popular community recommendations, and track development status in real-time.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Submit Suggestion Form */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-            <h2 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
-              <Lightbulb className="w-4 h-4 text-[#c16d18]" />
+          <div className="bg-white dark:bg-[#0f172a] p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+            <h2 className="font-black text-slate-900 dark:text-white text-sm flex items-center gap-2">
+              <Lightbulb className="w-4 h-4 text-indigo-600 dark:text-cyan-400" />
               <span>Submit New Recommendation</span>
             </h2>
 
             <form onSubmit={handleSubmitRecommendation} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Select Website / Platform</label>
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Select Website / Platform</label>
                 <select
                   value={websiteName}
                   onChange={(e) => setWebsiteName(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18]/40 focus:outline-none font-bold text-slate-800"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none font-bold text-slate-800 dark:text-slate-100 transition-all"
                 >
                   {displayWebsites.map((w: any) => (
                     <option key={w.id} value={w.name}>
@@ -301,11 +302,11 @@ export default function RecommendationsPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Select Module / Page</label>
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Select Module / Page</label>
                 <select
                   value={moduleName}
                   onChange={(e) => setModuleName(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18]/40 focus:outline-none font-bold text-slate-800"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none font-bold text-slate-800 dark:text-slate-100 transition-all"
                 >
                   {displayModules.map((m: any) => (
                     <option key={m.id} value={m.name}>
@@ -316,44 +317,44 @@ export default function RecommendationsPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Feature Title</label>
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Feature Title</label>
                 <input
                   type="text"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Dark Mode Toggle & High-Contrast Support"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18]/40 focus:outline-none font-semibold text-slate-800"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none font-semibold text-slate-800 dark:text-slate-100 placeholder:text-slate-400 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Feature Description & Value</label>
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Feature Description & Value</label>
                 <textarea
                   required
                   rows={4}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Explain how this feature improves user workflow..."
-                  className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18]/40 focus:outline-none"
+                  className="w-full p-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500/40 focus:outline-none text-slate-800 dark:text-slate-100 placeholder:text-slate-400 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Mockup / Screenshot Preview</label>
-                <div className="border border-dashed border-slate-300 rounded-xl p-3 bg-slate-50 text-center relative cursor-pointer hover:bg-amber-50/40 transition-colors">
+                <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Mockup / Screenshot Preview</label>
+                <div className="border border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-3 bg-slate-50 dark:bg-slate-900/60 text-center relative cursor-pointer hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 transition-colors">
                   <input
                     type="file"
                     accept="image/*"
                     onChange={handleScreenshotUpload}
                     className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                   />
-                  <UploadCloud className="w-6 h-6 text-[#c16d18] mx-auto mb-1" />
-                  <p className="font-bold text-slate-700 text-[11px]">Upload mockup screenshot</p>
+                  <UploadCloud className="w-6 h-6 text-indigo-600 dark:text-cyan-400 mx-auto mb-1" />
+                  <p className="font-bold text-slate-700 dark:text-slate-300 text-[11px]">Upload mockup screenshot</p>
                 </div>
 
                 {screenshotUrl && (
-                  <div className="mt-2 relative rounded-xl overflow-hidden border border-slate-200 max-h-32">
+                  <div className="mt-2 relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 max-h-32">
                     <img src={screenshotUrl} alt="Preview" className="w-full h-32 object-cover" />
                   </div>
                 )}
@@ -362,7 +363,7 @@ export default function RecommendationsPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-2.5 rounded-xl bg-[#c16d18] hover:bg-[#a35810] text-white font-bold text-xs shadow-md shadow-[#c16d18]/20 transition-all flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-xl bg-linear-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>Submit Feature Suggestion</span>
@@ -374,15 +375,16 @@ export default function RecommendationsPage() {
         {/* Right Column: Recommendations Stream & Voting */}
         <div className="lg:col-span-2 space-y-6">
           {/* Status Tabs */}
-          <div className="flex bg-white p-2 rounded-2xl border border-slate-200 shadow-xs gap-1 max-w-full overflow-x-auto no-scrollbar">
+          <div className="flex bg-white dark:bg-[#0f172a] p-2 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm gap-1 max-w-full overflow-x-auto no-scrollbar">
             {['ALL', 'SUBMITTED', 'UNDER_REVIEW', 'PLANNED', 'IN_DEVELOPMENT', 'IMPLEMENTED'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${activeTab === tab
-                  ? 'bg-[#c16d18] text-white shadow-xs'
-                  : 'text-slate-600 hover:bg-slate-100'
-                  }`}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                  activeTab === tab
+                    ? 'bg-linear-to-r from-indigo-600 to-cyan-600 text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
               >
                 {tab.replace('_', ' ')}
               </button>
@@ -390,21 +392,21 @@ export default function RecommendationsPage() {
           </div>
 
           {convertedTicketMsg && (
-            <div className="p-3 bg-emerald-100 border border-emerald-300 text-emerald-900 rounded-xl text-xs font-bold flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-300 rounded-xl text-xs font-bold flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>{convertedTicketMsg}</span>
             </div>
           )}
 
           {/* Recommendations Stream */}
           {loading ? (
-            <div className="p-12 bg-white rounded-2xl border border-slate-200 text-center text-slate-400 text-xs font-semibold">
+            <div className="p-12 bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 text-center text-slate-400 text-xs font-semibold">
               Loading feature suggestions from database...
             </div>
           ) : filtered.length === 0 ? (
-            <div className="p-12 bg-white rounded-2xl border border-slate-200 text-center space-y-2">
-              <Lightbulb className="w-10 h-10 text-amber-300 mx-auto" />
-              <h3 className="text-sm font-bold text-slate-700">No suggestions in this status</h3>
+            <div className="p-12 bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-2">
+              <Lightbulb className="w-10 h-10 text-indigo-400 dark:text-indigo-500 mx-auto" />
+              <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300">No suggestions in this status</h3>
               <p className="text-xs text-slate-400">Be the first to submit a suggestion!</p>
             </div>
           ) : (
@@ -412,19 +414,19 @@ export default function RecommendationsPage() {
               {filtered.map((rec) => (
                 <div
                   key={rec.id}
-                  className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-amber-300 transition-all space-y-4"
+                  className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:border-indigo-400/50 dark:hover:border-indigo-500/50 transition-all space-y-4"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60">
                           {rec.status.replace('_', ' ')}
                         </span>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
                           {rec.websiteName} • {rec.moduleName}
                         </span>
                       </div>
-                      <h3 className="font-extrabold text-base text-slate-900">{rec.title}</h3>
+                      <h3 className="font-extrabold text-base text-slate-900 dark:text-white">{rec.title}</h3>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
@@ -437,10 +439,10 @@ export default function RecommendationsPage() {
                           <button
                             onClick={() => handleUpvote(rec.id)}
                             title={hasUserVoted ? "Click to remove your upvote" : "Click to upvote this suggestion"}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs ${
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm ${
                               hasUserVoted
-                                ? 'bg-[#c16d18] text-white border border-[#c16d18] shadow-amber-600/30 ring-2 ring-[#c16d18]/20'
-                                : 'border border-amber-300 bg-amber-50 hover:bg-[#c16d18] hover:text-white text-[#c16d18]'
+                                ? 'bg-linear-to-r from-indigo-600 to-cyan-600 text-white border border-indigo-500 shadow-indigo-500/20'
+                                : 'border border-indigo-200 dark:border-indigo-800/80 bg-indigo-50/50 dark:bg-indigo-950/30 hover:bg-indigo-600 hover:text-white text-indigo-700 dark:text-indigo-300'
                             }`}
                           >
                             <ThumbsUp className={`w-3.5 h-3.5 ${hasUserVoted ? 'fill-white' : ''}`} />
@@ -453,7 +455,7 @@ export default function RecommendationsPage() {
                         <select
                           value={rec.status}
                           onChange={(e) => handleUpdateStatus(rec.id, e.target.value)}
-                          className="px-2.5 py-1 text-[11px] font-bold border border-slate-300 rounded-lg bg-white"
+                          className="px-2.5 py-1 text-[11px] font-bold border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100"
                         >
                           <option value="SUBMITTED">Submitted</option>
                           <option value="UNDER_REVIEW">Under Review</option>
@@ -466,26 +468,26 @@ export default function RecommendationsPage() {
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{rec.description}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">{rec.description}</p>
 
                   {rec.screenshotUrl && (
-                    <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 max-h-48">
+                    <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 max-h-48">
                       <img src={rec.screenshotUrl} alt={rec.title} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" />
                     </div>
                   )}
 
                   {/* Team & Specialist Assignment Bar for Manager/Super Admin */}
                   {(currentRole === 'SUPER_ADMIN' || currentRole === 'MANAGER') && (
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 pt-3 border-t border-slate-100 min-w-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 min-w-0">
                       <div className="flex items-center gap-1.5 w-full sm:w-auto min-w-0">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-1 shrink-0">
-                          <Building className="w-3 h-3 text-[#c16d18]" />
+                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase flex items-center gap-1 shrink-0">
+                          <Building className="w-3 h-3 text-indigo-600 dark:text-cyan-400" />
                           <span>Team:</span>
                         </span>
                         <select
                           value={rec.teamId || ''}
                           onChange={(e) => handleAssignTeam(rec.id, e.target.value)}
-                          className="flex-1 sm:flex-initial min-w-0 px-2 py-1 text-[11px] font-bold border border-slate-300 rounded-lg bg-white truncate"
+                          className="flex-1 sm:flex-initial min-w-0 px-2 py-1 text-[11px] font-bold border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 truncate"
                         >
                           <option value="">-- Assign Team --</option>
                           {teams.map((t: any) => (
@@ -497,14 +499,14 @@ export default function RecommendationsPage() {
                       </div>
 
                       <div className="flex items-center gap-1.5 w-full sm:w-auto min-w-0">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-1 shrink-0">
-                          <UserCheck className="w-3 h-3 text-blue-600" />
+                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase flex items-center gap-1 shrink-0">
+                          <UserCheck className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
                           <span>Specialist:</span>
                         </span>
                         <select
                           value={rec.assignedToId || ''}
                           onChange={(e) => handleAssignSpecialist(rec.id, e.target.value)}
-                          className="flex-1 sm:flex-initial min-w-0 px-2 py-1 text-[11px] font-bold border border-slate-300 rounded-lg bg-white truncate"
+                          className="flex-1 sm:flex-initial min-w-0 px-2 py-1 text-[11px] font-bold border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 truncate"
                         >
                           <option value="">-- Unassigned --</option>
                           {itSpecialists
@@ -521,14 +523,14 @@ export default function RecommendationsPage() {
                       </div>
 
                       {rec.isConverted || rec.status === 'IMPLEMENTED' ? (
-                        <div className="px-3 py-1.5 bg-emerald-50 border border-emerald-300 text-emerald-800 text-[11px] font-bold rounded-lg flex items-center justify-center gap-1 w-full sm:w-auto sm:ml-auto">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <div className="px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-[11px] font-bold rounded-lg flex items-center justify-center gap-1 w-full sm:w-auto sm:ml-auto">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                           <span>Converted to Ticket {rec.convertedTicketNumber ? `(#${rec.convertedTicketNumber})` : ''}</span>
                         </div>
                       ) : (
                         <button
                           onClick={() => handleConvertToTicket(rec.id, rec.teamId, rec.assignedToId)}
-                          className="px-3 py-1.5 bg-[#c16d18] hover:bg-[#a35810] text-white text-[11px] font-bold rounded-lg flex items-center justify-center gap-1 shadow-xs transition-all w-full sm:w-auto sm:ml-auto"
+                          className="px-3 py-1.5 bg-linear-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-[11px] font-bold rounded-lg flex items-center justify-center gap-1 shadow-sm transition-all w-full sm:w-auto sm:ml-auto active:scale-95"
                         >
                           <TicketIcon className="w-3.5 h-3.5 shrink-0" />
                           <span>Convert to Active Ticket</span>
@@ -537,16 +539,16 @@ export default function RecommendationsPage() {
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-100 flex-wrap gap-2">
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 pt-2 border-t border-slate-100 dark:border-slate-800/80 flex-wrap gap-2">
                     <div className="flex items-center gap-3">
-                      <span>Suggested by: <strong className="text-slate-700">{rec.author?.name || 'Guest User'}</strong></span>
+                      <span>Suggested by: <strong className="text-slate-700 dark:text-slate-300">{rec.author?.name || 'Guest User'}</strong></span>
                       {(rec.team || (rec.teamId && teams.find((t: any) => t.id === rec.teamId))) && (
-                        <span className="px-2 py-0.5 bg-blue-50 text-blue-800 rounded-full font-bold border border-blue-200 text-[10px]">
+                        <span className="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 rounded-full font-bold border border-indigo-200 dark:border-indigo-800/60 text-[10px]">
                           Team: {rec.team?.name || teams.find((t: any) => t.id === rec.teamId)?.name}
                         </span>
                       )}
                       {(rec.assignedTo || (rec.assignedToId && itUsers.find((u: any) => u.id === rec.assignedToId))) && (
-                        <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded-full font-bold border border-emerald-200 text-[10px]">
+                        <span className="px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 rounded-full font-bold border border-emerald-200 dark:border-emerald-800/60 text-[10px]">
                           Assigned: {rec.assignedTo?.name || itUsers.find((u: any) => u.id === rec.assignedToId)?.name}
                         </span>
                       )}
