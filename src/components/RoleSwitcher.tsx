@@ -81,7 +81,7 @@ export default function RoleSwitcher() {
                 title={item.desc}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-all text-xs font-semibold ${
                   isActive
-                    ? 'bg-[#c16d18] text-white shadow-md shadow-[#c16d18]/30 ring-2 ring-[#c16d18]/50'
+                    ? 'bg-gradient-to-r from-indigo-600 to-cyan-500 text-white shadow-md shadow-indigo-500/30 ring-2 ring-indigo-500/50'
                     : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700'
                 }`}
               >

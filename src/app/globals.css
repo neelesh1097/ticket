@@ -1,15 +1,33 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --primary: #c16d18;
-  --primary-hover: #a35810;
-  --primary-glow: rgba(193, 109, 24, 0.15);
-  --primary-border: rgba(193, 109, 24, 0.25);
-  --bg-canvas: #f8f8f8;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-glow: rgba(99, 102, 241, 0.2);
+  --primary-border: rgba(99, 102, 241, 0.3);
+  --accent: #06b6d4;
+  --bg-canvas: #f8fafc;
   --bg-surface: #ffffff;
+  --bg-card: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border-color: #e2e8f0;
+}
+
+.dark {
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --primary-glow: rgba(129, 140, 248, 0.3);
+  --primary-border: rgba(129, 140, 248, 0.35);
+  --accent: #22d3ee;
+  --bg-canvas: #090d16;
+  --bg-surface: #0f172a;
+  --bg-card: #141e33;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #1e293b;
 }
 
 body {
@@ -19,28 +37,40 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Glassmorphism Surface */
+/* Glassmorphism Next-Gen Surface */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .glass-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  transition: all 0.2s ease-in-out;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  box-shadow: 0 8px 25px rgba(193, 109, 24, 0.08);
-  border-color: rgba(193, 109, 24, 0.3);
+  box-shadow: 0 12px 30px -4px rgba(99, 102, 241, 0.12);
+  border-color: var(--primary-border);
   transform: translateY(-2px);
+}
+
+.dark .glass-card:hover {
+  box-shadow: 0 12px 30px -4px rgba(99, 102, 241, 0.25);
+  border-color: rgba(129, 140, 248, 0.4);
 }
 
 /* Custom Scrollbar */
@@ -49,14 +79,20 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 4px;
 }
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }
 
 /* Primary Theme Utilities */
@@ -73,73 +109,125 @@ body {
   background-color: var(--primary-hover);
 }
 
-/* Status Badge Themes */
-.badge-status-SUBMITTED,
+/* Status Badges */
+.badge-status-SUBMITTED {
+  background-color: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+.dark .badge-status-SUBMITTED {
+  background-color: rgba(21, 128, 61, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
 .badge-status-PENDING_APPROVAL {
-  background-color: #fef3c7;
-  color: #92400e;
-  border: 1px solid #fde68a;
+  background-color: #fefce8;
+  color: #a16207;
+  border: 1px solid #fef08a;
+}
+.dark .badge-status-PENDING_APPROVAL {
+  background-color: rgba(161, 98, 7, 0.2);
+  color: #fde047;
+  border: 1px solid rgba(253, 224, 71, 0.3);
 }
 
 .badge-status-APPROVED {
-  background-color: #e0f2fe;
-  color: #0369a1;
-  border: 1px solid #bae6fd;
+  background-color: #eef2ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+.dark .badge-status-APPROVED {
+  background-color: rgba(67, 56, 202, 0.25);
+  color: #a5b4fc;
+  border: 1px solid rgba(165, 180, 252, 0.3);
 }
 
 .badge-status-REJECTED {
-  background-color: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+  background-color: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+.dark .badge-status-REJECTED {
+  background-color: rgba(190, 18, 60, 0.2);
+  color: #fb7185;
+  border: 1px solid rgba(251, 113, 133, 0.3);
 }
 
 .badge-status-ASSIGNED,
 .badge-status-IN_PROGRESS {
-  background-color: #fff7ed;
-  color: #c16d18;
-  border: 1px solid #fed7aa;
+  background-color: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+.dark .badge-status-ASSIGNED,
+.dark .badge-status-IN_PROGRESS {
+  background-color: rgba(109, 40, 217, 0.25);
+  color: #c4b5fd;
+  border: 1px solid rgba(196, 181, 253, 0.35);
 }
 
 .badge-status-NEED_MORE_DETAILS {
-  background-color: #fce7f3;
-  color: #9d174d;
-  border: 1px solid #fbcfe8;
+  background-color: #fdf4ff;
+  color: #a21caf;
+  border: 1px solid #f5d0fe;
+}
+.dark .badge-status-NEED_MORE_DETAILS {
+  background-color: rgba(162, 28, 175, 0.2);
+  color: #f0abfc;
+  border: 1px solid rgba(240, 171, 252, 0.3);
 }
 
 .badge-status-PENDING_TESTING {
-  background-color: #f3e8ff;
-  color: #6b21a8;
-  border: 1px solid #e9d5ff;
+  background-color: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
+}
+.dark .badge-status-PENDING_TESTING {
+  background-color: rgba(14, 116, 144, 0.25);
+  color: #67e8f9;
+  border: 1px solid rgba(103, 232, 249, 0.3);
 }
 
 .badge-status-RESOLVED,
 .badge-status-COMPLETED,
 .badge-status-CLOSED {
-  background-color: #dcfce7;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+.dark .badge-status-RESOLVED,
+.dark .badge-status-COMPLETED,
+.dark .badge-status-CLOSED {
+  background-color: rgba(4, 120, 87, 0.25);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
 /* Priority Badges */
 .badge-priority-URGENT {
-  background-color: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
   color: #ffffff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
 }
 .badge-priority-HIGH {
-  background-color: #f97316;
+  background: linear-gradient(135deg, #f97316, #c2410c);
   color: #ffffff;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
 }
 .badge-priority-MEDIUM {
-  background-color: #3b82f6;
+  background: linear-gradient(135deg, #6366f1, #4338ca);
   color: #ffffff;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
 }
 .badge-priority-LOW {
-  background-color: #64748b;
+  background: linear-gradient(135deg, #64748b, #475569);
   color: #ffffff;
+  box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
 }
 
-/* Custom Pulsing Status Dot */
-.pulse-dot {
+/* Radar & Pulse Animations */
+.pulse-radar {
   display: inline-block;
   width: 8px;
   height: 8px;
@@ -147,7 +235,7 @@ body {
   position: relative;
 }
 
-.pulse-dot::after {
+.pulse-radar::after {
   content: '';
   position: absolute;
   top: 0;
@@ -156,20 +244,56 @@ body {
   height: 100%;
   border-radius: 50%;
   background: inherit;
-  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
 @keyframes pulse-ring {
   0% {
     transform: scale(0.95);
-    opacity: 0.8;
+    opacity: 0.9;
   }
-  50% {
-    transform: scale(1.8);
+  60% {
+    transform: scale(2.2);
     opacity: 0;
   }
   100% {
     transform: scale(0.95);
     opacity: 0;
   }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+@keyframes glow-shift {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(6, 182, 212, 0.4));
+  }
+}
+
+.animate-glow {
+  animation: glow-shift 5s ease-in-out infinite;
+}
+
+/* Sticky Note Styles */
+.sticky-note-peel {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sticky-note-peel:hover {
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
 }
