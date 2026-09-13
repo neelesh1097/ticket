@@ -11,6 +11,9 @@ import {
   FileText,
   X,
   ArrowLeft,
+  Sparkles,
+  Zap,
+  ShieldCheck,
 } from 'lucide-react';
 
 export default function NewTicketPage() {
@@ -58,14 +61,7 @@ export default function NewTicketPage() {
   // Attachment state
   const [attachments, setAttachments] = useState<
     { fileName: string; fileUrl: string; fileType: string; fileSize: number }[]
-  >([
-    // {
-    //   fileName: 'error_screenshot_log.png',
-    //   fileUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600',
-    //   fileType: 'image/png',
-    //   fileSize: 342000,
-    // },
-  ]);
+  >([]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -130,35 +126,43 @@ export default function NewTicketPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors"
+        className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Tickets Desk</span>
       </button>
 
-      <div className="bg-gradient-to-r from-[#c16d18] to-[#d97d20] text-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-2">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="bg-white/20 text-white border border-white/30 text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full backdrop-blur-xs">
-            Submit Support Request
-          </span>
-          <span className="text-xs text-amber-100">Sent directly to Manager Inbox in Database</span>
+      {/* Hero Banner */}
+      <div className="bg-gradient-to-r from-indigo-600 via-indigo-700 to-cyan-600 text-white p-6 sm:p-8 rounded-2xl shadow-xl space-y-2 relative overflow-hidden">
+        <div className="absolute right-0 top-0 translate-x-12 -translate-y-8 w-64 h-64 rounded-full bg-cyan-400/20 blur-3xl pointer-events-none"></div>
+        <div className="relative z-10 space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="bg-white/20 text-white border border-white/30 text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full backdrop-blur-xs flex items-center gap-1">
+              <Zap className="w-3 h-3 text-cyan-300" />
+              Direct Support Dispatch
+            </span>
+            <span className="text-xs text-indigo-100 font-semibold flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-300" />
+              Open to All Users • No Manager Approval Required
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">Raise a New Support Ticket</h1>
+          <p className="text-xs text-indigo-100/90 max-w-xl">
+            Submit your issue directly into the active operations queue. Provide website target, module name, and screenshots for rapid technical investigation.
+          </p>
         </div>
-        <h1 className="text-2xl font-black tracking-tight">Raise a New Support Ticket</h1>
-        <p className="text-xs text-slate-300">
-          Provide details, website target, module name, and screenshots for rapid technical investigation.
-        </p>
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+        <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs font-semibold">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-[#0f172a] rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xs space-y-6 transition-colors">
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+            <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">
               Ticket Title / Brief Summary <span className="text-rose-500">*</span>
             </label>
             <input
@@ -167,84 +171,84 @@ export default function NewTicketPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Stripe checkout 504 gateway timeout error during flash sale"
-              className="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18] focus:bg-white focus:outline-none"
+              className="w-full text-xs p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none transition-all"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+              <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">
                 Select Project / URL <span className="text-rose-500">*</span>
               </label>
               <select
                 value={websiteName}
                 onChange={(e) => setWebsiteName(e.target.value)}
-                className="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18] focus:bg-white focus:outline-none font-bold text-slate-800"
+                className="w-full text-xs p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 font-bold text-slate-800 dark:text-slate-100 focus:outline-none transition-all"
               >
                 {websites.map((w: any) => (
-                  <option key={w.id} value={w.name}>
+                  <option key={w.id} value={w.name} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                     {w.name} {w.url ? `(${w.url})` : ''}
                   </option>
                 ))}
               </select>
-              <p className="text-[10px] text-slate-400 mt-1">Predefined by Manager & Super Admin</p>
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">Select project target</p>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+              <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">
                 Select Module <span className="text-rose-500">*</span>
               </label>
               <select
                 value={module}
                 onChange={(e) => setModule(e.target.value)}
-                className="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18] focus:bg-white focus:outline-none font-bold text-slate-800"
+                className="w-full text-xs p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 font-bold text-slate-800 dark:text-slate-100 focus:outline-none transition-all"
               >
                 {filteredModules.map((m: any) => (
-                  <option key={m.id} value={m.name}>
+                  <option key={m.id} value={m.name} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                     {m.name}
                   </option>
                 ))}
               </select>
-              <p className="text-[10px] text-slate-400 mt-1">Predefined by Manager & Super Admin</p>
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">Target module component</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+              <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">
                 Ticket Category
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18] focus:bg-white focus:outline-none font-semibold text-slate-800"
+                className="w-full text-xs p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100 focus:outline-none transition-all"
               >
-                <option value="Software Bug">Software Bug</option>
-                <option value="IT Request">IT Support Request</option>
-                <option value="Infrastructure">Infrastructure Maintenance</option>
-                <option value="Feature Access">Feature Access / Permission</option>
+                <option value="Software Bug" className="bg-white dark:bg-slate-900">Software Bug</option>
+                <option value="IT Request" className="bg-white dark:bg-slate-900">IT Support Request</option>
+                <option value="Infrastructure" className="bg-white dark:bg-slate-900">Infrastructure Maintenance</option>
+                <option value="Feature Access" className="bg-white dark:bg-slate-900">Feature Access / Permission</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+              <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">
                 Urgency / Priority Level
               </label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
-                className="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18] focus:bg-white focus:outline-none font-semibold text-slate-800"
+                className="w-full text-xs p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 font-semibold text-slate-800 dark:text-slate-100 focus:outline-none transition-all"
               >
-                <option value="LOW">Low - General query</option>
-                <option value="MEDIUM">Medium - Normal operational request</option>
-                <option value="HIGH">High - Important feature blocking</option>
-                <option value="URGENT">Urgent - System outage / Critical bug</option>
+                <option value="LOW" className="bg-white dark:bg-slate-900">Low - General query</option>
+                <option value="MEDIUM" className="bg-white dark:bg-slate-900">Medium - Normal operational request</option>
+                <option value="HIGH" className="bg-white dark:bg-slate-900">High - Important feature blocking</option>
+                <option value="URGENT" className="bg-white dark:bg-slate-900">Urgent - System outage / Critical bug</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+            <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300 mb-1">
               Detailed Description & Steps to Reproduce <span className="text-rose-500">*</span>
             </label>
             <textarea
@@ -253,52 +257,52 @@ export default function NewTicketPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe the issue in detail..."
-              className="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#c16d18] focus:bg-white focus:outline-none"
+              className="w-full text-xs p-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none transition-all"
             ></textarea>
           </div>
 
           <div className="space-y-2">
-            <label className="block text-xs font-bold uppercase text-slate-700">
+            <label className="block text-xs font-bold uppercase text-slate-700 dark:text-slate-300">
               Upload Diagnostic Attachments & Screenshots
             </label>
-            <div className="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center bg-slate-50 hover:bg-amber-50/40 hover:border-[#c16d18]/50 transition-colors cursor-pointer relative">
+            <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-6 text-center bg-slate-50 dark:bg-slate-800/40 hover:bg-indigo-50/30 dark:hover:bg-indigo-950/20 hover:border-indigo-500/50 transition-colors cursor-pointer relative">
               <input
                 type="file"
                 accept="image/*,.pdf,.doc,.txt"
                 onChange={handleFileUpload}
                 className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
               />
-              <UploadCloud className="w-8 h-8 text-[#c16d18] mx-auto mb-2" />
-              <p className="text-xs font-bold text-slate-800">
+              <UploadCloud className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mx-auto mb-2" />
+              <p className="text-xs font-bold text-slate-800 dark:text-slate-200">
                 Click to browse or drag & drop diagnostic screenshot
               </p>
-              <p className="text-[10px] text-slate-500 mt-1">Supports PNG, JPG, WEBP, PDF up to 10MB</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">Supports PNG, JPG, WEBP, PDF up to 5MB</p>
             </div>
 
             {attachments.length > 0 && (
               <div className="space-y-2 pt-2">
-                <p className="text-[11px] font-bold text-slate-600">Attached Files ({attachments.length}):</p>
+                <p className="text-[11px] font-bold text-slate-600 dark:text-slate-400">Attached Files ({attachments.length}):</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {attachments.map((att, idx) => (
                     <div
                       key={idx}
-                      className="bg-white border border-slate-200 rounded-xl p-2.5 flex items-center justify-between gap-2 shadow-xs"
+                      className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-2.5 flex items-center justify-between gap-2 shadow-xs"
                     >
                       <div className="flex items-center gap-2 overflow-hidden">
                         {att.fileType.startsWith('image/') ? (
                           <img src={att.fileUrl} alt={att.fileName} className="w-8 h-8 rounded object-cover shrink-0" />
                         ) : (
-                          <FileText className="w-6 h-6 text-[#c16d18] shrink-0" />
+                          <FileText className="w-6 h-6 text-indigo-600 dark:text-indigo-400 shrink-0" />
                         )}
                         <div className="truncate text-left">
-                          <p className="text-xs font-bold text-slate-800 truncate">{att.fileName}</p>
+                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{att.fileName}</p>
                           <p className="text-[10px] text-slate-400">{(att.fileSize / 1024).toFixed(0)} KB</p>
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={() => removeAttachment(idx)}
-                        className="text-slate-400 hover:text-rose-600 p-1"
+                        className="text-slate-400 hover:text-rose-600 p-1 transition-colors"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -310,25 +314,25 @@ export default function NewTicketPage() {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-200 flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
+        <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
           <button
             type="button"
             onClick={() => router.back()}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 text-center"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-center transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#c16d18] hover:bg-[#a35810] text-white text-xs font-bold shadow-md shadow-[#c16d18]/25 transition-all flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600 text-white text-xs font-extrabold shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
-              <span>Submitting Ticket...</span>
+              <span>Dispatching Ticket...</span>
             ) : (
               <>
                 <TicketIcon className="w-4 h-4" />
-                <span>Submit Ticket for Manager Review</span>
+                <span>Raise Ticket Instantly</span>
               </>
             )}
           </button>

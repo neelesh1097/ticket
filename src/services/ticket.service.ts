@@ -6,7 +6,7 @@ import crypto from 'crypto';
 type Actor = { id: string; role: 'GUEST_USER' | 'IT_SOFTWARE' | 'MANAGER' | 'SUPER_ADMIN'; teamId?: string | null; };
 
 function canAccessTicket(ticket: { createdById: string; assignedToId: string | null; testedById?: string | null; teamId: string | null }, actor: Actor) {
-  return actor.role === 'SUPER_ADMIN' || actor.role === 'MANAGER' || ticket.createdById === actor.id || ticket.assignedToId === actor.id || ticket.testedById === actor.id || (Boolean(ticket.teamId) && ticket.teamId === actor.teamId);
+  return actor.role === 'SUPER_ADMIN' || actor.role === 'MANAGER' || actor.role === 'IT_SOFTWARE' || ticket.createdById === actor.id || ticket.assignedToId === actor.id || ticket.testedById === actor.id || (Boolean(ticket.teamId) && ticket.teamId === actor.teamId);
 }
 
 export interface CreateTicketDTO {
@@ -47,7 +47,7 @@ export class TicketService {
    * Fetch all tickets with full relations
    */
   static async getAllTickets(actor: Actor) {
-    const where = actor.role === 'SUPER_ADMIN' || actor.role === 'MANAGER'
+    const where = actor.role === 'SUPER_ADMIN' || actor.role === 'MANAGER' || actor.role === 'IT_SOFTWARE'
       ? undefined
       : { OR: [{ createdById: actor.id }, { assignedToId: actor.id }, { testedById: actor.id }, { team: { members: { some: { id: actor.id } } } }] };
     const tickets = await prisma.ticket.findMany({
@@ -103,7 +103,7 @@ export class TicketService {
   }
 
   /**
-   * Create a new ticket (Level 1 Guest submission)
+   * Create a new ticket (Level 1 Guest submission - No manager approval required)
    */
   static async createTicket(dto: CreateTicketDTO) {
     const count = await prisma.ticket.count();
@@ -127,7 +127,7 @@ export class TicketService {
         module: dto.module,
         category: dto.category,
         priority: dto.priority || TicketPriority.MEDIUM,
-        status: TicketStatus.PENDING_APPROVAL,
+        status: TicketStatus.APPROVED,
         createdById: userId,
         attachments: {
           create: (dto.attachments || []).slice(0, 5).map((att) => ({
