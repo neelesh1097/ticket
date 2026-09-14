@@ -791,7 +791,7 @@ export default function SuperAdminDashboard() {
       {/* New Team Modal */}
       {showTeamModal && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleCreateTeam} className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200 dark:border-slate-800">
+          <form onSubmit={handleCreateTeam} className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4 border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">
             <h3 className="font-bold text-base text-slate-900 dark:text-white">Add New Team</h3>
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Team Name</label>

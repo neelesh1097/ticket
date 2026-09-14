@@ -251,7 +251,7 @@ export default function TicketsPage() {
 
                   <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{t.description}</p>
 
-                  <div className="flex items-center gap-4 text-[11px] text-slate-400 dark:text-slate-500 pt-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-400 dark:text-slate-500 pt-1">
                     <span>Platform: <strong className="text-slate-600 dark:text-slate-300">{t.websiteName || 'N/A'}</strong></span>
                     <span>Module: <strong className="text-slate-600 dark:text-slate-300">{t.module || 'N/A'}</strong></span>
                     <span>Submitted by: <strong className="text-slate-600 dark:text-slate-300">{t.createdBy?.name || 'Guest User'}</strong></span>

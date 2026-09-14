@@ -109,48 +109,72 @@ export default function StickyNotes() {
   const createNote = () => {
     const newZ = maxZIndex + 1;
     setMaxZIndex(newZ);
-    const colorTheme = NOTE_COLORS[notes.length % NOTE_COLORS.length];
-    
-    // Position offset
-    const offset = (notes.length % 5) * 25;
-    const defaultX = isMobile ? 15 : Math.max(20, window.innerWidth - 360 - offset);
-    const defaultY = isMobile ? 80 + offset : 110 + offset;
 
-    const newNote: NoteItem = {
-      id: `note-${Date.now()}`,
-      title: 'New Note',
-      content: '',
-      color: colorTheme.bg,
-      textColor: colorTheme.text,
-      x: defaultX,
-      y: defaultY,
-      isMinimized: false,
-      isPinned: false,
-      zIndex: newZ,
-      updatedAt: new Date().toISOString(),
-    };
+    setNotes((prevNotes) => {
+      const colorTheme = NOTE_COLORS[prevNotes.length % NOTE_COLORS.length];
+      const offset = (prevNotes.length % 5) * 20;
+      const defaultX = isMobile ? 12 : Math.max(20, window.innerWidth - 340 - offset);
+      const defaultY = isMobile ? 75 + offset : 100 + offset;
 
-    const updated = [newNote, ...notes];
-    saveNotes(updated);
+      const newNote: NoteItem = {
+        id: `note-${Date.now()}`,
+        title: 'New Note',
+        content: '',
+        color: colorTheme.bg,
+        textColor: colorTheme.text,
+        x: defaultX,
+        y: defaultY,
+        isMinimized: false,
+        isPinned: false,
+        zIndex: newZ,
+        updatedAt: new Date().toISOString(),
+      };
+
+      const updated = [newNote, ...prevNotes];
+      if (currentUser?.id) {
+        localStorage.setItem(`ticketpulse_notes_${currentUser.id}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
     setIsVisible(true);
   };
 
   const updateNote = (id: string, updates: Partial<NoteItem>) => {
-    const updated = notes.map((n) =>
-      n.id === id ? { ...n, ...updates, updatedAt: new Date().toISOString() } : n
-    );
-    saveNotes(updated);
+    setNotes((prevNotes) => {
+      if (!prevNotes.some((n) => n.id === id)) return prevNotes;
+      const updated = prevNotes.map((n) =>
+        n.id === id ? { ...n, ...updates, updatedAt: new Date().toISOString() } : n
+      );
+      if (currentUser?.id) {
+        localStorage.setItem(`ticketpulse_notes_${currentUser.id}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   const deleteNote = (id: string) => {
-    const updated = notes.filter((n) => n.id !== id);
-    saveNotes(updated);
+    setNotes((prevNotes) => {
+      const updated = prevNotes.filter((n) => n.id !== id);
+      if (currentUser?.id) {
+        localStorage.setItem(`ticketpulse_notes_${currentUser.id}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   const bringToFront = (id: string) => {
-    const newZ = maxZIndex + 1;
-    setMaxZIndex(newZ);
-    updateNote(id, { zIndex: newZ });
+    setNotes((prevNotes) => {
+      if (!prevNotes.some((n) => n.id === id)) return prevNotes;
+      const newZ = maxZIndex + 1;
+      setMaxZIndex(newZ);
+      const updated = prevNotes.map((n) =>
+        n.id === id ? { ...n, zIndex: newZ } : n
+      );
+      if (currentUser?.id) {
+        localStorage.setItem(`ticketpulse_notes_${currentUser.id}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
   };
 
   // Dragging logic with Pointer Events (supports mouse & touch)
@@ -174,10 +198,11 @@ export default function StickyNotes() {
       const deltaY = moveEvent.clientY - startY;
 
       // Smart viewport bounds
-      const maxX = Math.max(0, window.innerWidth - (isMobile ? 260 : 300));
+      const noteWidth = isMobile ? Math.min(window.innerWidth - 24, 300) : 300;
+      const maxX = Math.max(0, window.innerWidth - noteWidth - 10);
       const maxY = Math.max(60, window.innerHeight - 80);
 
-      const newX = Math.min(Math.max(10, initialNoteX + deltaX), maxX);
+      const newX = Math.min(Math.max(8, initialNoteX + deltaX), maxX);
       const newY = Math.min(Math.max(65, initialNoteY + deltaY), maxY);
 
       updateNote(note.id, { x: newX, y: newY });
@@ -206,8 +231,9 @@ export default function StickyNotes() {
   return (
     <>
       {/* Floating Notes Control Pill (Bottom Right) */}
-      <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2">
+      <div className="fixed bottom-4 sm:bottom-5 right-4 sm:right-5 z-40 flex items-center gap-2">
         <button
+          type="button"
           onClick={() => setIsVisible(!isVisible)}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl text-xs font-black shadow-lg backdrop-blur-md transition-all duration-300 ${
             isVisible
@@ -222,6 +248,7 @@ export default function StickyNotes() {
         </button>
 
         <button
+          type="button"
           onClick={createNote}
           className="p-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 text-white shadow-lg hover:shadow-indigo-500/25 hover:scale-110 active:scale-95 transition-all duration-200"
           title="Create New Sticky Note"
@@ -233,8 +260,6 @@ export default function StickyNotes() {
       {/* Render All Sticky Notes */}
       {isVisible &&
         notes.map((note) => {
-          const isDarkColor = note.color === '#1e293b';
-
           return (
             <div
               key={note.id}
@@ -245,8 +270,8 @@ export default function StickyNotes() {
                 zIndex: note.zIndex,
                 backgroundColor: note.color,
                 color: note.textColor,
-                width: isMobile ? 'calc(100vw - 32px)' : '300px',
-                maxWidth: '320px',
+                width: isMobile ? 'calc(100vw - 24px)' : '300px',
+                maxWidth: isMobile ? '340px' : '320px',
               }}
               className={`fixed rounded-2xl shadow-xl transition-shadow duration-200 border border-black/10 dark:border-white/10 ${
                 note.isPinned ? 'ring-2 ring-indigo-500/60' : ''
@@ -263,17 +288,28 @@ export default function StickyNotes() {
                   <input
                     type="text"
                     value={note.title}
+                    onClick={(e) => e.stopPropagation()}
+                    onPointerDown={(e) => e.stopPropagation()}
                     onChange={(e) => updateNote(note.id, { title: e.target.value })}
                     placeholder="Note title..."
                     className="w-full bg-transparent text-xs font-black tracking-tight outline-none truncate placeholder:opacity-50"
                   />
                 </div>
 
-                <div className="flex items-center gap-1 shrink-0" onPointerDown={(e) => e.stopPropagation()}>
+                <div
+                  className="flex items-center gap-1 shrink-0"
+                  onClick={(e) => e.stopPropagation()}
+                  onPointerDown={(e) => e.stopPropagation()}
+                >
                   {/* Pin button */}
                   <button
-                    onClick={() => updateNote(note.id, { isPinned: !note.isPinned })}
-                    className={`p-1 rounded-lg transition-colors ${
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      updateNote(note.id, { isPinned: !note.isPinned });
+                    }}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    className={`p-1 rounded-lg transition-colors cursor-pointer ${
                       note.isPinned ? 'bg-black/15 text-indigo-600' : 'opacity-60 hover:opacity-100 hover:bg-black/10'
                     }`}
                     title={note.isPinned ? 'Unpin' : 'Pin Note'}
@@ -284,26 +320,35 @@ export default function StickyNotes() {
                   {/* Palette color picker */}
                   <div className="relative">
                     <button
-                      onClick={() =>
-                        setActiveColorPicker(activeColorPicker === note.id ? null : note.id)
-                      }
-                      className="p-1 rounded-lg opacity-60 hover:opacity-100 hover:bg-black/10 transition-colors"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveColorPicker(activeColorPicker === note.id ? null : note.id);
+                      }}
+                      onPointerDown={(e) => e.stopPropagation()}
+                      className="p-1 rounded-lg opacity-60 hover:opacity-100 hover:bg-black/10 transition-colors cursor-pointer"
                       title="Change Color"
                     >
                       <Palette className="w-3.5 h-3.5" />
                     </button>
 
                     {activeColorPicker === note.id && (
-                      <div className="absolute top-7 right-0 p-2 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 flex gap-1.5">
+                      <div
+                        onClick={(e) => e.stopPropagation()}
+                        onPointerDown={(e) => e.stopPropagation()}
+                        className="absolute top-7 right-0 p-2 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 flex gap-1.5"
+                      >
                         {NOTE_COLORS.map((c) => (
                           <button
                             key={c.name}
-                            onClick={() => {
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
                               updateNote(note.id, { color: c.bg, textColor: c.text });
                               setActiveColorPicker(null);
                             }}
                             style={{ backgroundColor: c.bg }}
-                            className="w-5 h-5 rounded-full border border-black/20 hover:scale-125 transition-transform"
+                            className="w-5 h-5 rounded-full border border-black/20 hover:scale-125 transition-transform cursor-pointer"
                             title={c.name}
                           />
                         ))}
@@ -313,8 +358,13 @@ export default function StickyNotes() {
 
                   {/* Minimize / Expand */}
                   <button
-                    onClick={() => updateNote(note.id, { isMinimized: !note.isMinimized })}
-                    className="p-1 rounded-lg opacity-60 hover:opacity-100 hover:bg-black/10 transition-colors"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      updateNote(note.id, { isMinimized: !note.isMinimized });
+                    }}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    className="p-1 rounded-lg opacity-60 hover:opacity-100 hover:bg-black/10 transition-colors cursor-pointer"
                     title={note.isMinimized ? 'Expand Note' : 'Minimize Note'}
                   >
                     {note.isMinimized ? (
@@ -324,10 +374,15 @@ export default function StickyNotes() {
                     )}
                   </button>
 
-                  {/* Delete button */}
+                  {/* Delete button (Cross) */}
                   <button
-                    onClick={() => deleteNote(note.id)}
-                    className="p-1 rounded-lg opacity-60 hover:opacity-100 hover:text-red-600 hover:bg-black/10 transition-colors"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteNote(note.id);
+                    }}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    className="p-1 rounded-lg opacity-60 hover:opacity-100 hover:text-red-600 hover:bg-black/10 transition-colors cursor-pointer"
                     title="Delete Note"
                   >
                     <X className="w-3.5 h-3.5" />

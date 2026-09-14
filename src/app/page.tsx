@@ -223,54 +223,54 @@ export default function DashboardPage() {
       </div>
 
       {/* Overview Stat Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-        <div className="bg-white dark:bg-[#0f172a] p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-4 transition-colors">
-          <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-            <TicketIcon className="w-6 h-6" />
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5">
+        <div className="bg-white dark:bg-[#0f172a] p-3.5 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-2.5 sm:gap-4 transition-colors">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+            <TicketIcon className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <div>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tickets</p>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-white">{tickets.length}</h3>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">In system</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">Total Tickets</p>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white truncate">{tickets.length}</h3>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-medium truncate">In system</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#0f172a] p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-4 transition-colors">
-          <div className="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
-            <Clock className="w-6 h-6" />
+        <div className="bg-white dark:bg-[#0f172a] p-3.5 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-2.5 sm:gap-4 transition-colors">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <div>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Active Queue</p>
-            <h3 className="text-2xl font-black text-cyan-600 dark:text-cyan-400">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">Active Queue</p>
+            <h3 className="text-xl sm:text-2xl font-black text-cyan-600 dark:text-cyan-400 truncate">
               {tickets.filter((t) => ['SUBMITTED', 'APPROVED', 'ASSIGNED', 'IN_PROGRESS'].includes(t.status)).length}
             </h3>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Ready / in progress</p>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-medium truncate">Ready / in work</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#0f172a] p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-4 transition-colors">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-            <CheckCircle2 className="w-6 h-6" />
+        <div className="bg-white dark:bg-[#0f172a] p-3.5 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-2.5 sm:gap-4 transition-colors">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <div>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Resolved</p>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-white">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">Resolved</p>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white truncate">
               {metrics.completedTickets !== undefined
                 ? metrics.completedTickets
                 : tickets.filter((t) => ['RESOLVED', 'COMPLETED', 'CLOSED'].includes(t.status)).length}
             </h3>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Issues closed</p>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-medium truncate">Issues closed</p>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-[#0f172a] p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-4 transition-colors">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-            <Building className="w-6 h-6" />
+        <div className="bg-white dark:bg-[#0f172a] p-3.5 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs flex items-center gap-2.5 sm:gap-4 transition-colors">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+            <Building className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <div>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Teams</p>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-white">{metrics.totalTeams || teams.length}</h3>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Active units</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">Total Teams</p>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white truncate">{metrics.totalTeams || teams.length}</h3>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-medium truncate">Active units</p>
           </div>
         </div>
       </div>
@@ -370,9 +370,9 @@ export default function DashboardPage() {
                   myAssignedTickets.map((t) => {
                     const isSeen = seenTicketIds.has(t.id);
                     return (
-                      <div key={t.id} className="p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors flex items-center justify-between gap-4">
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
+                      <div key={t.id} className="p-4 sm:p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                        <div className="space-y-1 min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">{t.ticketNumber}</span>
                             {!isSeen ? (
                               <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-500 text-white animate-pulse">
@@ -387,12 +387,12 @@ export default function DashboardPage() {
                               {t.status.replace('_', ' ')}
                             </span>
                           </div>
-                          <h3 className="font-bold text-sm text-slate-900 dark:text-white">{t.title}</h3>
+                          <h3 className="font-bold text-sm text-slate-900 dark:text-white line-clamp-1">{t.title}</h3>
                         </div>
 
                         <Link
                           href={`/tickets/${t.id}`}
-                          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                          className={`w-full sm:w-auto text-center px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
                             !isSeen
                               ? 'bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600 text-white shadow-md shadow-indigo-500/20'
                               : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
@@ -410,7 +410,7 @@ export default function DashboardPage() {
 
           {/* Tickets Stream Table */}
           <div className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden transition-colors">
-            <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <h2 className="font-extrabold text-slate-900 dark:text-white text-sm flex items-center gap-2">
                 <TicketIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span>{currentRole === 'GUEST_USER' ? 'My Support Tickets' : 'Recent Support Tickets'}</span>
@@ -428,9 +428,9 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 tickets.slice(0, 5).map((t) => (
-                  <div key={t.id} className="p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors flex items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
+                  <div key={t.id} className="p-4 sm:p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                    <div className="space-y-1 min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">{t.ticketNumber}</span>
                         <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                           {t.category}
@@ -439,19 +439,19 @@ export default function DashboardPage() {
                           {t.status.replace('_', ' ')}
                         </span>
                       </div>
-                      <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-white line-clamp-1">
                         <Link href={`/tickets/${t.id}`} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                           {t.title}
                         </Link>
                       </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{t.websiteName || 'General Portal'} • {t.module || 'Core'}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{t.websiteName || 'General Portal'} • {t.module || 'Core'}</p>
                     </div>
 
                     <Link
                       href={`/tickets/${t.id}`}
-                      className="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 rounded-lg transition-colors"
+                      className="w-full sm:w-auto text-center px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all shrink-0"
                     >
-                      <ChevronRight className="w-5 h-5" />
+                      View Details
                     </Link>
                   </div>
                 ))
@@ -529,7 +529,7 @@ export default function DashboardPage() {
       {/* Approve & Assign IT Specialist Modal */}
       {showApproveModal && selectedTicket && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="space-y-1">
               <h3 className="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-emerald-600" />
@@ -636,7 +636,7 @@ export default function DashboardPage() {
       {/* Reject Modal */}
       {showRejectModal && selectedTicket && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
             <h3 className="font-bold text-base text-slate-900 dark:text-white">Reject Ticket #{selectedTicket.ticketNumber}</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">Provide a clear rejection reason for the client:</p>
             <textarea

@@ -431,7 +431,7 @@ export default function TicketDetailPage() {
 
         {/* Action Banner for unassigned / pending tickets */}
         {(currentRole === 'MANAGER' || currentRole === 'SUPER_ADMIN' || currentRole === 'IT_SOFTWARE') && ticket.status === 'PENDING_APPROVAL' && (
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 p-3 rounded-2xl w-full sm:w-auto">
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-2.5 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 p-3.5 rounded-2xl w-full xl:w-auto">
             <span className="text-xs font-bold text-indigo-900 dark:text-indigo-300 shrink-0">Assign & Dispatch:</span>
             <select
               value={selectedTeamId}
@@ -1074,16 +1074,16 @@ export default function TicketDetailPage() {
       {/* Log Hours Modal */}
       {showLogModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleLogWork} className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <h3 className="font-bold text-base text-slate-900">Log IT Technical Work Hours</h3>
+          <form onSubmit={handleLogWork} className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
+            <h3 className="font-bold text-base text-slate-900 dark:text-white">Log IT Technical Work Hours</h3>
             
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Target Environment *</label>
                 <select
                   value={workEnv}
                   onChange={(e) => setWorkEnv(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white"
+                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
                 >
                   <option value="DEV">DEV (Development)</option>
                   <option value="UAT">UAT (Staging/QA)</option>
@@ -1098,7 +1098,7 @@ export default function TicketDetailPage() {
                   value={workBranch}
                   onChange={(e) => setWorkBranch(e.target.value)}
                   placeholder="e.g. fix/auth-leak"
-                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 font-mono text-indigo-900 dark:text-cyan-300 font-bold"
+                  className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-mono text-indigo-900 dark:text-cyan-300 font-bold"
                 />
               </div>
             </div>
@@ -1111,7 +1111,7 @@ export default function TicketDetailPage() {
                 required
                 value={hoursSpent}
                 onChange={(e) => setHoursSpent(e.target.value)}
-                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
               />
             </div>
             <div>
@@ -1122,14 +1122,14 @@ export default function TicketDetailPage() {
                 value={workDesc}
                 onChange={(e) => setWorkDesc(e.target.value)}
                 placeholder="Details of code fix, server config, branch deployment, or bug investigation..."
-                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
               />
             </div>
             <div className="flex items-center justify-end gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setShowLogModal(false)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 Cancel
               </button>
@@ -1147,7 +1147,7 @@ export default function TicketDetailPage() {
       {/* Assign Tester Modal */}
       {showTesterModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleAssignTesterSubmit} className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+          <form onSubmit={handleAssignTesterSubmit} className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="font-extrabold text-base text-slate-900 flex items-center gap-2">
                 <TestTube className="w-5 h-5 text-purple-600" />
@@ -1220,9 +1220,9 @@ export default function TicketDetailPage() {
       {/* Submit Testing Verdict Modal */}
       {showTestResultModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-base text-slate-900 flex items-center gap-2">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <h3 className="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
                 {testPassedChoice ? (
                   <Check className="w-5 h-5 text-emerald-600" />
                 ) : (
@@ -1232,14 +1232,14 @@ export default function TicketDetailPage() {
               </h3>
             </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               {testPassedChoice
                 ? 'Confirming module test pass will allow managers or admins to mark the ticket as COMPLETED.'
                 : 'Failing module test will automatically revert ticket status to IN_PROGRESS and reassign back to the developer with your feedback.'}
             </p>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Tester Remarks / Feedback {testPassedChoice ? '(Optional)' : '(Required)'}
               </label>
               <textarea
@@ -1252,15 +1252,15 @@ export default function TicketDetailPage() {
                     ? 'e.g. Verified fix on UAT environment. All test cases passed.'
                     : 'e.g. Bug still reproduces when clicking submit button on UAT build...'
                 }
-                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                className="w-full p-2.5 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/40 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
               <button
                 type="button"
                 onClick={() => setShowTestResultModal(false)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
                 Cancel
               </button>
@@ -1424,6 +1424,39 @@ export default function TicketDetailPage() {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Reject Ticket Modal */}
+      {showRejectModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4 max-h-[90vh] overflow-y-auto">
+            <h3 className="font-bold text-base text-slate-900 dark:text-white">Reject Ticket #{ticket.ticketNumber}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Provide a clear rejection reason for the client:</p>
+            <textarea
+              value={rejectReason}
+              onChange={(e) => setRejectReason(e.target.value)}
+              placeholder="e.g. Insufficient details provided / Works as intended per spec."
+              rows={3}
+              className="w-full p-3 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/40 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+            />
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => { setShowRejectModal(false); setRejectReason(''); }}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleReject}
+                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md"
+              >
+                Confirm Rejection
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

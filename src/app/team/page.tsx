@@ -283,8 +283,8 @@ export default function TeamPage() {
                   assignedTickets.map((t) => {
                     const isSeen = seenTicketIds.has(t.id);
                     return (
-                      <div key={t.id} className="p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors flex items-center justify-between gap-4">
-                        <div className="space-y-1">
+                      <div key={t.id} className="p-4 sm:p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                        <div className="space-y-1 min-w-0 flex-1">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-mono text-xs font-bold text-indigo-600 dark:text-cyan-400">{t.ticketNumber}</span>
                             {!isSeen ? (
@@ -322,13 +322,13 @@ export default function TeamPage() {
                               </span>
                             )}
                           </div>
-                          <h3 className="font-bold text-sm text-slate-900 dark:text-white">{t.title}</h3>
-                          <p className="text-xs text-slate-500 dark:text-slate-400">{t.websiteName} • {t.module} {t.branchName ? `• Branch: ${t.branchName}` : ''}</p>
+                          <h3 className="font-bold text-sm text-slate-900 dark:text-white line-clamp-1">{t.title}</h3>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{t.websiteName} • {t.module} {t.branchName ? `• Branch: ${t.branchName}` : ''}</p>
                         </div>
 
                         <Link
                           href={`/tickets/${t.id}`}
-                          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                          className={`w-full sm:w-auto text-center px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
                             !isSeen
                               ? 'bg-linear-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white shadow-md shadow-indigo-500/20'
                               : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
@@ -527,7 +527,7 @@ export default function TeamPage() {
       {/* Add Member Modal */}
       {selectedTeamForAdd && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200 dark:border-slate-800">
+          <div className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4 border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">
             <h3 className="font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2">
               <Users className="w-5 h-5 text-indigo-600 dark:text-cyan-400" />
               <span>Add Member to {selectedTeamForAdd.name}</span>
@@ -574,7 +574,7 @@ export default function TeamPage() {
       {/* Create Team Modal */}
       {showCreateTeamModal && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleCreateTeam} className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200 dark:border-slate-800">
+          <form onSubmit={handleCreateTeam} className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4 border border-slate-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">
             <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
               <Building className="w-5 h-5 text-indigo-600 dark:text-cyan-400" />
               <span>Create New Operational Team</span>
